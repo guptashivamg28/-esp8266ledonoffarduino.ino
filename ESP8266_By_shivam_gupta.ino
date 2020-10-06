@@ -5,7 +5,7 @@
     
     #include <SoftwareSerial.h>
     #define DEBUG true
-    SoftwareSerial esp8266(2,3); // make RX Arduino line is pin 5, make TX Arduino line is pin 6.
+    SoftwareSerial esp8266(2,3); 
      int LED=12; //LED PIN
      int itsONled[] = {0,0};     // LED STATUS ARRAY eg- ON or OFF at startup.
      
@@ -19,8 +19,8 @@
       sendData("AT+CWMODE=1\r\n",1000,DEBUG); // configure as Wireless Station mode
       sendData("AT+CWJAP=\"yourssid\",\"pass\"\r\n", 6000, DEBUG); //Put Your SSID and password if activate as Station mode else comment down the line
       sendData("AT+CIFSR\r\n",2000,DEBUG); // get ip address
-      sendData("AT+CIPMUX=1\r\n",1000,DEBUG); // configure for multiple connections
-      sendData("AT+CIPSERVER=1,80\r\n",1000,DEBUG); // turn on server on port 80
+      sendData("AT+CIPMUX=1\r\n",1000,DEBUG); 
+      sendData("AT+CIPSERVER=1,80\r\n",1000,DEBUG);
     }
 
 void loop()
@@ -30,8 +30,7 @@ void loop()
   {
     if(esp8266.find("+IPD,"))
     {
-     // subtract 48 because the read() function returns 
-     // the ASCII decimal value and 0 (the first decimal number) starts at 48
+     
      int connectionId = esp8266.read()-48; 
      //To read the url sent by the client
      String msg;
@@ -43,6 +42,8 @@ void loop()
      String webpage = "<html><head><title>ESP8266 WEB SWITCH</title>";
      webpage += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><style>.button {background-color: orange;border: none;color: white;padding: 15px 32px;text-align: center;display: inline-block;font-size: 16px;} .centre {text-align: center;}</style>";
      webpage += "</head><body class=\"centre\"><h1 class=\"centre\">ESP8266 WEB SWITCH</h1>";
+        
+        
      //COMMANDS TO TURN ON or OFF LED RECEIVE BY WEB
                   if (command1 == "T"){
                     if (itsONled[1] == 1) 
